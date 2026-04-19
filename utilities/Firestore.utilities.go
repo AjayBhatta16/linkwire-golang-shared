@@ -67,7 +67,7 @@ func GetItemsByFieldValue[TData any, TPointer interface {
 	return items, nil
 }
 
-func CreateItem[TData models.FirestoreRecordBase](
+func CreateItem[TData any](
 	collectionName string, 
 	data TData) error {
 
@@ -92,7 +92,7 @@ func CreateItem[TData models.FirestoreRecordBase](
 	return nil
 }
 
-func UpdateItem[TData models.FirestoreRecordBase](
+func UpdateItem[TData any](
 	collectionName string, 
 	firestoreID string,
 	data TData) error {
