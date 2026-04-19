@@ -21,7 +21,7 @@ func GetVariableFromPath(r *http.Request, functionName string) string {
 }
 
 func GetTokenFromCookies(w http.ResponseWriter, r *http.Request) string {
-	cookie, err := r.Cookie("access_token")
+	cookie, err := r.Cookie("token")
 
     if err != nil {
         http.Error(w, "Unauthorized", http.StatusUnauthorized)
