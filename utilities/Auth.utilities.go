@@ -43,3 +43,22 @@ func GetJWTUsername(tokenString string) (string, error) {
 
 	return username, nil
 }
+
+func GenerateJWT(username string) (string, error) {
+	secretKey := os.Getenv("JWT_SECRET_KEY")
+
+	claims := jwt.MapClaims{
+		"username": username,
+		"exp":      time.Now().Add(time.Hour).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString([]byte(secretKey))
+
+	if err != nil {
+		log.Println("GenerateJWT - Error signing token:", err)
+		return "", err
+	}
+
+	return tokenString, nil
+}
