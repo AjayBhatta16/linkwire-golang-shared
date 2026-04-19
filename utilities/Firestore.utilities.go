@@ -5,6 +5,8 @@ import (
 	"log"
 
 	"cloud.google.com/go/firestore"
+
+	"github.com/AjayBhatta16/linkwire-golang-shared/models"
 )
 
 func GetFirestoreClient(ctx context.Context) (*firestore.Client, error) {
@@ -15,7 +17,7 @@ func GetFirestoreClient(ctx context.Context) (*firestore.Client, error) {
 
 func GetItemsByFieldValue[TData any, TPointer interface {
     *TData
-    FirestoreRecordBase
+    models.FirestoreRecordBase
 }](
 	collectionName string, 
 	fieldName string, 
@@ -65,7 +67,7 @@ func GetItemsByFieldValue[TData any, TPointer interface {
 	return items, nil
 }
 
-func CreateItem[TData FirestoreRecordBase](
+func CreateItem[TData models.FirestoreRecordBase](
 	collectionName string, 
 	data TData) error {
 
@@ -90,7 +92,7 @@ func CreateItem[TData FirestoreRecordBase](
 	return nil
 }
 
-func UpdateItem[TData FirestoreRecordBase](
+func UpdateItem[TData models.FirestoreRecordBase](
 	collectionName string, 
 	firestoreID string,
 	data TData) error {
