@@ -57,19 +57,19 @@ func ValidateJWTNotExpired(tokenString string) (bool, error) {
 
 	if err != nil {
 		log.Println("GetJWTUsername - Error parsing token:", err)
-		return "", err
+		return false, err
 	}
 
 	if !parsedToken.Valid {
 		log.Println("GetJWTUsername - Invalid token")
-		return "", jwt.ErrTokenInvalidClaims
+		return false, jwt.ErrTokenInvalidClaims
 	}
 
 	claims, ok := parsedToken.Claims.(jwt.MapClaims)
 
 	if !ok {
 		log.Println("GetJWTUsername - Error extracting claims")
-		return "", jwt.ErrTokenInvalidClaims
+		return false, jwt.ErrTokenInvalidClaims
 	}
 
 	exp, ok := claims["exp"].(float64)
