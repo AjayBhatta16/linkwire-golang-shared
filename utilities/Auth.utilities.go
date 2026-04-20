@@ -45,6 +45,48 @@ func GetJWTUsername(tokenString string) (string, error) {
 	return username, nil
 }
 
+func ValidateJWTNotExpired(tokenString string) (bool, error) {
+	secretKey := os.Getenv("JWT_SECRET_KEY")
+
+	parsedToken, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrTokenUnverifiable
+		}
+		return []byte(secretKey), nil
+	})
+
+	if err != nil {
+		log.Println("GetJWTUsername - Error parsing token:", err)
+		return "", err
+	}
+
+	if !parsedToken.Valid {
+		log.Println("GetJWTUsername - Invalid token")
+		return "", jwt.ErrTokenInvalidClaims
+	}
+
+	claims, ok := parsedToken.Claims.(jwt.MapClaims)
+
+	if !ok {
+		log.Println("GetJWTUsername - Error extracting claims")
+		return "", jwt.ErrTokenInvalidClaims
+	}
+
+	exp, ok := claims["exp"].(float64)
+	
+	if !ok {
+		log.Println("ValidateJWTNotExpired - Error extracting expiration claim")
+		return false, jwt.ErrTokenInvalidClaims
+	}
+
+	if time.Now().Unix() > int64(exp) {
+		log.Println("ValidateJWTNotExpired - Token is expired")
+		return false, jwt.ErrTokenExpired
+	}
+
+	return true, nil
+}
+
 func GenerateJWT(username string) (string, error) {
 	secretKey := os.Getenv("JWT_SECRET_KEY")
 
