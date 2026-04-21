@@ -30,3 +30,9 @@ func GetTokenFromCookies(w http.ResponseWriter, r *http.Request) string {
 
 	return cookie.Value
 }
+
+func ApplyDefaultHeaders(w http.ResponseWriter, methodType string) {
+	w.Header().Set("Access-Control-Allow-Methods", methodType+", OPTIONS")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Requested-With, x-requested-with")
+}
