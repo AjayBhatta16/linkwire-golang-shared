@@ -107,5 +107,5 @@ func GenerateJWT(username string) (string, error) {
 }
 
 func GetSetCookieHeaderValue(tokenString string) string {
-	return "token=" + tokenString + "; HttpOnly; Secure; Path=/; Max-Age=3600"
+	return "token=" + tokenString + "; HttpOnly; Path=/; Max-Age=3600"
 }
