@@ -6,6 +6,7 @@ type User struct {
 	Password string `json:"-" firestore:"password"`
 	PremiumUser bool   `json:"premiumUser" firestore:"premiumUser"`
 	Links []string `json:"links" firestore:"links"`
+	AgreedToLatestTerms bool `json:"agreedToLatestTerms" firestore:"agreedToLatestTerms"`
 
 	FirestoreID string `json:"-"`
 }

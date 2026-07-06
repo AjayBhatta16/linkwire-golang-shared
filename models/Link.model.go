@@ -11,7 +11,8 @@ type Link struct {
 	UseLogin        bool    `json:"useLogin" firestore:"useLogin"`
 	LoginPageBrand  string  `json:"loginPageBrand" firestore:"loginPageBrand"`
 	CreatedBy       string  `json:"createdBy" firestore:"createdBy"`
-	Clicks          []Click `json:"clicks" firestore:"clicks"`
+	ClickCount      int     `json:"clickCount" firestore:"clickCount"`
+	LoginAttemptCount   int     `json:"loginAttemptCount" firestore:"loginAttemptCount"`
 
 	FirestoreID string `json:"-"`
 }
