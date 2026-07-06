@@ -14,6 +14,8 @@ type Link struct {
 	ClickCount      int     `json:"clickCount" firestore:"clickCount"`
 	LoginAttemptCount   int     `json:"loginAttemptCount" firestore:"loginAttemptCount"`
 
+	Clicks		  []Click `json:"clicks"`
+
 	FirestoreID string `json:"-"`
 }
 
